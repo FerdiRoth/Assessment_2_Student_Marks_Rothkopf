@@ -38,15 +38,16 @@ public class StudentMarks {
                     
                     if (parts.length == 6) { //ensure line has exactly 6 components
                         
-                        String name = parts[0].trim(); //extracts first component & removes trailing space
-                        String id = parts[1].trim(); //extracts second component & trims it
+                        String firstName = parts[0].trim(); //extracts first component & removes trailing space
+                        String secondName = parts[1].trim(); //extracts first component & removes trailing 
+                        String id = parts[2].trim(); //extracts second component & trims it
                         
-                        try {  //Attempt to parse third component as integer
-                            double assignment1Mark = Double.parseDouble(parts[2].trim()); //converts string into double
-                            double assignment2Mark = Double.parseDouble(parts[3].trim());
-                            double assignment3Mark = Double.parseDouble(parts[4].trim());
+                        try {  //Attempt to parse third component as double
+                            double assignment1Mark = Double.parseDouble(parts[3].trim()); //converts string into double
+                            double assignment2Mark = Double.parseDouble(parts[4].trim());
+                            double assignment3Mark = Double.parseDouble(parts[5].trim());
                             
-                            students.add(new Student(name, id, assignment1Mark, assignment2Mark, assignment3Mark)); //creates new student object with parsed data
+                            students.add(new Student(firstName, secondName, id, assignment1Mark, assignment2Mark, assignment3Mark)); //creates new student object with parsed data
                             
                         } catch (NumberFormatException e) { // incase marks are not a valid integer
                             
@@ -68,22 +69,27 @@ public class StudentMarks {
     }
     
     static class Student {
-        private String name;
+        private String firstName;
+        private String secondName;
         private String id;
         private double assignment1Mark;
         private double assignment2Mark;
         private double assignment3Mark;
-        public Student(String name, String id, double assignment1Mark, double assignment2Mark, double assignment3Mark) {
-            this.name = name;
+        public Student(String firstName, String secondName, String id, double assignment1Mark, double assignment2Mark, double assignment3Mark) {
+            this.firstName = firstName;
+            this.secondName = secondName;
             this.id = id;
             this.assignment1Mark = assignment1Mark;
             this.assignment2Mark = assignment2Mark;
             this.assignment3Mark = assignment3Mark;
         }
+        public double getTotalMarks() {
+            return assignment1Mark + assignment2Mark + assignment3Mark;
+        }
         @Override
         public String toString() {
-            return String.format("%s (%s): %.2f, %.2f, %.2f",
-                name, id, assignment1Mark, assignment2Mark, assignment3Mark);
-}
+            return String.format("%s (%s) %s: %.2f, %.2f, %.2f | Total: %.2f",
+                firstName, secondName, id, assignment1Mark, assignment2Mark, assignment3Mark, getTotalMarks());
+        }
     }
 }
