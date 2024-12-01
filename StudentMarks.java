@@ -31,11 +31,6 @@ public class StudentMarks {
             while ((line = br.readLine()) != null) { //reads each line of the file till the end
                 System.out.println("Processing line: " + line); // Debugging output
                  
-                if (lineNumber < 2) { // Skip the first two lines
-                    lineNumber++;
-                    System.out.println("Skipped line: " + line); // Debugging output for skipped line
-                    continue;
-                }
                 if (!line.startsWith("#")) {  //making sure comments are not read
                     
                     String[] parts = line.split(","); //splits each line into parts
@@ -55,11 +50,11 @@ public class StudentMarks {
                             
                         } catch (NumberFormatException e) { // incase marks are not a valid integer
                             
-                            System.err.println("Invalid mark format (not a valid mark) in line: " + line); //prints error message incase mark is not valid integer
+                            System.err.println("Invalid mark format in line (line beeing ignored): " + line); //prints error message incase mark is not valid integer
                             
                         }
                     } else {
-                        System.err.println("Invalid mark format (wrong amount of parts in line) in line: " + line); //prints error message incase there are not 6 parts in the line
+                        System.err.println("Wrong amount of parts in line (line beeing ignored): " + line); //prints error message incase there are not 6 parts in the line
                     }
                 }
                 
