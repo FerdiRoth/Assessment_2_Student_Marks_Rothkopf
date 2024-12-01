@@ -26,32 +26,40 @@ public class StudentMarks {
             String line; //holds each line as it is read
             
             System.out.println("Reading file...");
-            
+            int lineNumber = 0; // Declare and initialize lineNumber before the loop
+
             while ((line = br.readLine()) != null) { //reads each line of the file till the end
                 System.out.println("Processing line: " + line); // Debugging output
-                
+                 
+                if (lineNumber < 2) { // Skip the first two lines
+                    lineNumber++;
+                    System.out.println("Skipped line: " + line); // Debugging output for skipped line
+                    continue;
+                }
                 if (!line.startsWith("#")) {  //making sure comments are not read
                     
                     String[] parts = line.split(","); //splits each line into parts
                     System.out.println("Parts length: " + parts.length); // Debugging output
                     
-                    if (parts.length == 6) { //ensure line has exactly 5 components
+                    if (parts.length == 6) { //ensure line has exactly 6 components
                         
                         String name = parts[0].trim(); //extracts first component & removes trailing space
                         String id = parts[1].trim(); //extracts second component & trims it
                         
                         try {  //Attempt to parse third component as integer
-                            int mark1 = Integer.parseInt(parts[2].trim()); //convert string into integer
-                            int mark2 = Integer.parseInt(parts[3].trim());
-                            int mark3 = Integer.parseInt(parts[4].trim());
+                            double assignment1Mark = Double.parseDouble(parts[2].trim()); //converts string into double
+                            double assignment2Mark = Double.parseDouble(parts[3].trim());
+                            double assignment3Mark = Double.parseDouble(parts[4].trim());
                             
-                            students.add(new Student(name, id, mark1, mark2, mark3)); //creates new student object with parsed data
+                            students.add(new Student(name, id, assignment1Mark, assignment2Mark, assignment3Mark)); //creates new student object with parsed data
                             
                         } catch (NumberFormatException e) { // incase marks are not a valid integer
                             
-                            System.err.println("Invalid mark format in line: " + line); //prints error message incase mark is not valid integer
+                            System.err.println("Invalid mark format (not a valid mark) in line: " + line); //prints error message incase mark is not valid integer
                             
                         }
+                    } else {
+                        System.err.println("Invalid mark format (wrong amount of parts in line) in line: " + line); //prints error message incase there are not 6 parts in the line
                     }
                 }
                 
@@ -67,10 +75,10 @@ public class StudentMarks {
     static class Student {
         private String name;
         private String id;
-        private int assignment1Mark;
-        private int assignment2Mark;
-        private int assignment3Mark;
-        public Student(String name, String id, int assignment1Mark, int assignment2Mark, int assignment3Mark) {
+        private double assignment1Mark;
+        private double assignment2Mark;
+        private double assignment3Mark;
+        public Student(String name, String id, double assignment1Mark, double assignment2Mark, double assignment3Mark) {
             this.name = name;
             this.id = id;
             this.assignment1Mark = assignment1Mark;
@@ -79,8 +87,8 @@ public class StudentMarks {
         }
         @Override
         public String toString() {
-            return String.format("%s (%s): %d, %d, %d",
-                    name, id, assignment1Mark, assignment2Mark, assignment3Mark);
-        }
+            return String.format("%s (%s): %.2f, %.2f, %.2f",
+                name, id, assignment1Mark, assignment2Mark, assignment3Mark);
+}
     }
 }
