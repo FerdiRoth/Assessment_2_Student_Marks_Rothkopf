@@ -10,9 +10,8 @@ import java.util.*;
 
 public class StudentMarks {
     
-    static class Student {}
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         Scanner scanner = new Scanner(System.in); // Instantiate Scanner once at the beginning
         System.out.println("Enter the file name:");
@@ -53,4 +52,18 @@ public class StudentMarks {
         }
     }
     
+    static class Student {
+        private String name;
+        private String id;
+        private int assignement1Mark;
+        private int assignment2Mark;
+        private int assignment3Mark;
+        public Student(String name, String id, int assignment1Mark, int assignment2Mark, int assignment3Mark) {
+            this.name = name;
+            this.id = id;
+            this.assignment1Mark = assignment1Mark;
+            this.assignment2Mark = assignment2Mark;
+            this.assignment3Mark = assignment3Mark;
+        }
+    }
 }
