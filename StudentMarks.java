@@ -28,11 +28,14 @@ public class StudentMarks {
             System.out.println("Reading file...");
             
             while ((line = br.readLine()) != null) { //reads each line of the file till the end
+                System.out.println("Processing line: " + line); // Debugging output
+                
                 if (!line.startsWith("#")) {  //making sure comments are not read
                     
                     String[] parts = line.split(","); //splits each line into parts
+                    System.out.println("Parts length: " + parts.length); // Debugging output
                     
-                    if (parts.length == 5) { //ensure line has exactly 5 components
+                    if (parts.length == 6) { //ensure line has exactly 5 components
                         
                         String name = parts[0].trim(); //extracts first component & removes trailing space
                         String id = parts[1].trim(); //extracts second component & trims it
