@@ -22,43 +22,42 @@ public class StudentMarks {
         }
         
         List<Student> students = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            String line;
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) { //opens file and initializes BufferedReader (try: closes if exception occures)
+            String line; //holds each line as it is read
             
             System.out.println("Reading file...");
             
-            while ((line = br.readLine()) != null) {
-                if (!line.startsWith("#")) {
+            while ((line = br.readLine()) != null) { //reads each line of the file till the end
+                if (!line.startsWith("#")) {  //making sure comments are not read
                     
-                    String[] parts = line.split(",");
+                    String[] parts = line.split(","); //splits each line into parts
                     
-                    if (parts.length == 5) {
+                    if (parts.length == 5) { //ensure line has exactly 5 components
                         
-                        String name = parts[0].trim();
-                        String id = parts[1].trim();
+                        String name = parts[0].trim(); //extracts first component & removes trailing space
+                        String id = parts[1].trim(); //extracts second component & trims it
                         
-                        try {
-                            int mark1 = Integer.parseInt(parts[2].trim());
+                        try {  //Attempt to parse third component as integer
+                            int mark1 = Integer.parseInt(parts[2].trim()); //convert string into integer
                             int mark2 = Integer.parseInt(parts[3].trim());
                             int mark3 = Integer.parseInt(parts[4].trim());
                             
-                            students.add(new Student(name, id, mark1, mark2, mark3));
+                            students.add(new Student(name, id, mark1, mark2, mark3)); //creates new student object with parsed data
                             
-                        } catch (NumberFormatException e) {
+                        } catch (NumberFormatException e) { // incase marks are not a valid integer
                             
-                            System.err.println("Invalid mark format in line: " + line);
+                            System.err.println("Invalid mark format in line: " + line); //prints error message incase mark is not valid integer
                             
                         }
                     }
                 }
                 
             }
-            
-            System.out.println("\nStudents and their marks:");
+            System.out.println("\nNumber of students added: " + students.size());
             for (Student student : students) {
                 System.out.println(student);
-                
             }
+            
         }
     }
     
