@@ -14,9 +14,13 @@ public class StudentMarks {
     public static void main(String[] args) throws IOException {
         
         Scanner scanner = new Scanner(System.in); // Instantiate Scanner once at the beginning
-        System.out.println("Enter the file name:");
+        System.out.println("Enter the file name (default: prog5001_students_grade_2022.csv):");
         String fileName = scanner.nextLine().trim();
 
+        if (fileName.isEmpty()) {
+            fileName = "prog5001_students_grade_2022.csv"; // Default file
+        }
+        
         List<Student> students = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -49,13 +53,19 @@ public class StudentMarks {
                 }
                 
             }
+            
+            System.out.println("\nStudents and their marks:");
+            for (Student student : students) {
+                System.out.println(student);
+                
+            }
         }
     }
     
     static class Student {
         private String name;
         private String id;
-        private int assignement1Mark;
+        private int assignment1Mark;
         private int assignment2Mark;
         private int assignment3Mark;
         public Student(String name, String id, int assignment1Mark, int assignment2Mark, int assignment3Mark) {
@@ -64,6 +74,11 @@ public class StudentMarks {
             this.assignment1Mark = assignment1Mark;
             this.assignment2Mark = assignment2Mark;
             this.assignment3Mark = assignment3Mark;
+        }
+        @Override
+        public String toString() {
+            return String.format("%s (%s): %d, %d, %d",
+                    name, id, assignment1Mark, assignment2Mark, assignment3Mark);
         }
     }
 }
