@@ -9,8 +9,6 @@ import java.io.*;
 import java.util.*;
 
 public class StudentMarks {
-    
-    
     public static void main(String[] args) throws IOException {
         
         Scanner scanner = new Scanner(System.in); // Instantiate Scanner once at the beginning
@@ -66,6 +64,7 @@ public class StudentMarks {
             }
             
         }
+        filterByThreshold(students, scanner);
     }
     
     static class Student {
@@ -90,6 +89,17 @@ public class StudentMarks {
         public String toString() {
             return String.format("%s (%s) %s: %.2f, %.2f, %.2f | Total: %.2f",
                 firstName, secondName, id, assignment1Mark, assignment2Mark, assignment3Mark, getTotalMarks());
+        }
+    }
+    
+    public static void filterByThreshold(List<Student> students, Scanner scanner) {
+        System.out.println("\nEnter the threshold value:");
+        double threshold = scanner.nextDouble();
+        System.out.println("\nStudents with total marks less than " + threshold + ":");
+        for (Student student : students) {
+            if (student.getTotalMarks() < threshold) {
+            System.out.println(student);
+            }
         }
     }
 }
