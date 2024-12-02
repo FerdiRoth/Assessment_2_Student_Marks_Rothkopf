@@ -58,16 +58,54 @@ public class StudentMarks {
                 }
                 
             }
-            System.out.println("\nNumber of students added: " + students.size());
-            for (Student student : students) {
-                System.out.println(student);
+            
+            if (students.isEmpty()) { // User feedback if File is empty
+                System.out.println("No student data found in the file.");
+                return;
             }
             
+            boolean exit = false;
+            while (!exit) {
+                System.out.println("\nMenu:");
+                System.out.println("1. Display all students and their total marks");
+                System.out.println("2. Filter students by threshold");
+                System.out.println("3. Display top 5 highest and lowest scoring students");
+                System.out.println("4. Exit");
+                System.out.print("Enter your choice: ");
+
+                int choice = 0;
+                choice = scanner.nextInt();
+                scanner.nextLine(); // Consume newline
+
+                switch (choice) {
+                    case 1:
+                        System.out.println("\nStudents and their marks:");
+                        for (Student student : students) {
+                            System.out.println(student);
+                        }
+                        break;
+                    case 2:
+                        filterByThreshold(students, scanner);
+                        break;
+                    case 3:
+                        sortAndPrintTopStudents(students);
+                        break;
+                    case 4:
+                        exit = true;
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + fileName);
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        } finally {
+            scanner.close();
         }
-        filterByThreshold(students, scanner);
-        sortAndPrintTopStudents(students);
     }
-    
+
     static class Student {
         private String firstName;
         private String secondName;
