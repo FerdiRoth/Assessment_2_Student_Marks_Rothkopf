@@ -74,7 +74,14 @@ public class StudentMarks {
                 System.out.print("Enter your choice: ");
 
                 int choice = 0;
-                choice = scanner.nextInt();
+                try {
+                    choice = scanner.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter an integer value.");
+                    scanner.nextLine(); // Clear the invalid input
+                    continue;
+                }
+
                 scanner.nextLine(); // Consume newline
 
                 switch (choice) {
@@ -133,12 +140,24 @@ public class StudentMarks {
     
     public static void filterByThreshold(List<Student> students, Scanner scanner) {
         System.out.println("\nEnter the threshold value:");
-        double threshold = scanner.nextDouble();
+        double threshold = 0;
+        try {
+            threshold = scanner.nextDouble();
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a double value.");
+            scanner.nextLine(); // Clear the invalid input
+            return;
+        }
         System.out.println("\nStudents with total marks less than " + threshold + ":");
+        boolean found = false;
         for (Student student : students) {
             if (student.getTotalMarks() < threshold) {
-            System.out.println(student);
+                System.out.println(student);
+                found = true;
             }
+        }
+        if (!found) {
+            System.out.println("No students found with total marks less than " + threshold);
         }
     }
     
