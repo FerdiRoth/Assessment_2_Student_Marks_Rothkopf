@@ -4,4 +4,6 @@ comment1.params=args
 comment1.target=void\ main(java.lang.String[])
 comment2.params=students\ scanner
 comment2.target=void\ filterByThreshold(java.util.List,\ java.util.Scanner)
-numComments=3
+comment3.params=students
+comment3.target=void\ sortAndPrintTopStudents(java.util.List)
+numComments=4

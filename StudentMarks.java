@@ -65,6 +65,7 @@ public class StudentMarks {
             
         }
         filterByThreshold(students, scanner);
+        sortAndPrintTopStudents(students);
     }
     
     static class Student {
@@ -100,6 +101,29 @@ public class StudentMarks {
             if (student.getTotalMarks() < threshold) {
             System.out.println(student);
             }
+        }
+    }
+    
+    public static void sortAndPrintTopStudents(List<Student> students) {
+        int n = students.size(); // Bubble sort
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (students.get(j).getTotalMarks() > students.get(j + 1).getTotalMarks()) { // Swap students[j] and students[j + 1]
+                    Student temp = students.get(j);
+                    students.set(j, students.get(j + 1));
+                    students.set(j + 1, temp);
+                }
+            }
+        }
+
+        System.out.println("\nTop 5 Lowest Scoring Students:");
+        for (int i = 0; i < 5 && i < n; i++) {
+            System.out.println(students.get(i));
+        }
+
+        System.out.println("\nTop 5 Highest Scoring Students:");
+        for (int i = n - 1; i >= n - 5 && i >= 0; i--) {
+            System.out.println(students.get(i));
         }
     }
 }
